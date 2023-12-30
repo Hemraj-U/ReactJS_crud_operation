@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
+import Registration from "./components/user/Registration";
+
+import Login from "./components/user/Login";
+
+import React from "react";
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./context/AuthContext";
+import Home from "./components/home/Home";
+import Navbar from "./components/home/Navbar";
+import CreateTransaction from "./components/trans/CreateTransaction";
+import Transactions from "./components/trans/Transactions";
+import EditTransaction from "./components/EditTransaction";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <AuthProvider>
+        <div className="App">
+          <Navbar />
+          <ToastContainer className="App" />
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Registration />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/create" element={<CreateTransaction />} />
+            <Route path="/transaction" element={<Transactions />} />
+            <Route path="/edit/:id" element={<EditTransaction />} />
+          </Routes>
+        </div>
+      </AuthProvider>
+    </Router>
   );
 }
 
